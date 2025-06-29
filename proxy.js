@@ -34,3 +34,6 @@ app.post('/chat', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`OpenAI proxy server running on port ${PORT}`);
 });
+app.get('/', (req, res) => {
+  res.send('Proxy server is running.');
+});
