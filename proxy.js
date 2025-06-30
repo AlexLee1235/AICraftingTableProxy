@@ -31,6 +31,27 @@ app.post('/chat', async (req, res) => {
   }
 });
 
+app.post('/image', async (req, res) => {
+  try {
+    const response = await axios.post(
+      'https://api.openai.com/v1/images/generations',
+      req.body,
+      {
+        headers: {
+          'Authorization': `Bearer ${OPENAI_API_KEY}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    res.json(response.data);
+  } catch (err) {
+    console.error(err.response?.data || err.message);
+    res.status(err.response?.status || 500).json({
+      error: err.response?.data || err.message
+    });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`OpenAI proxy server running on port ${PORT}`);
 });
